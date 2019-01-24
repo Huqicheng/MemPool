@@ -15,6 +15,7 @@ BasicIncludes.h
 #include <cstdio>
 #include <math.h>
 #include <assert.h>
+#include <cstring>
 
 // c++
 #include <iostream>
