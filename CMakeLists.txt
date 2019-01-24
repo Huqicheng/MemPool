@@ -3,10 +3,10 @@ project(mem_pool)
 
 include_directories(include)
 
-# 查找当前目录下的所有源文件
-# 并将名称保存到 DIR_SRCS 变量
-aux_source_directory(./src DIR_SRCS)
+SET(libmempool src/MemPool.cpp)
+SET(src main.cpp)
 
-# 指定生成目标
-add_executable(main ${DIR_SRCS})
+ADD_LIBRARY(libmempool ${libSrc})
+
+add_executable(main ${src})
 
