@@ -3,10 +3,9 @@ project(mem_pool)
 
 include_directories(include)
 
-# 查找当前目录下的所有源文件
-# 并将名称保存到 DIR_SRCS 变量
-aux_source_directory(./src DIR_SRCS)
+add_subdirectory(src)
 
-# 指定生成目标
-add_executable(main ${DIR_SRCS})
+add_executable(main main.cpp)
 
+# link libs to the program entry
+target_link_libraries(main libmempool)
