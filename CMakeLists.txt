@@ -3,10 +3,7 @@ project(mem_pool)
 
 include_directories(include)
 
-SET(libmempool src/MemPool.cpp)
-SET(src main.cpp)
+add_subdirectory(src)
 
-ADD_LIBRARY(libmempool ${libSrc})
-
-add_executable(main ${src})
+add_executable(main main.cpp)
 
