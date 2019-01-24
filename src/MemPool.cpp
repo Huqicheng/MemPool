@@ -56,11 +56,11 @@ void *CMemoryPool::GetMemory(const std::size_t &sMemorySize)
         ptrChunk = FindChunkSuitableToHoldMemory(sBestMemBlockSize);
         if(!ptrChunk)
         {
-        // No chunk can be found
-        // => Memory-Pool is to small. We have to request 
-        //    more Memory from the Operating-System....
-        sBestMemBlockSize = MaxValue(sBestMemBlockSize, CalculateBestMemoryBlockSize(m_sMinimalMemorySizeToAllocate));
-        AllocateMemory(sBestMemBlockSize);
+            // No chunk can be found
+            // => Memory-Pool is to small. We have to request 
+            //    more Memory from the Operating-System....
+            sBestMemBlockSize = MaxValue(sBestMemBlockSize, CalculateBestMemoryBlockSize(m_sMinimalMemorySizeToAllocate));
+            AllocateMemory(sBestMemBlockSize);
         }
     }
 
@@ -69,7 +69,7 @@ void *CMemoryPool::GetMemory(const std::size_t &sMemorySize)
     // the Values of the MemoryChunk itself.
     m_sUsedMemoryPoolSize += sBestMemBlockSize;
     m_sFreeMemoryPoolSize -= sBestMemBlockSize;
-    m_uiObjectCount++ ;
+    m_uiObjectCount++;
     SetMemoryChunkValues(ptrChunk, sBestMemBlockSize);
 
     // eventually, return the Pointer to the User
@@ -97,31 +97,6 @@ void CMemoryPool::FreeMemory(void *ptrMemoryBlock, const std::size_t &sMemoryBlo
 
 bool CMemoryPool::AllocateMemory(const std::size_t &sMemorySize)
 {
-    // Calculate the amount of "SMemoryChunks" needed to manage the requested MemorySize.
-    // Every MemoryChunk can manage only a certain amount of Memory
-    // (set by the "m_sMemoryChunkSize"-Member of the Memory-Pool).
-    //
-    // Also, calculate the "Best" Memory-Block size to allocate from the 
-    // Operating-System, so that all allocated Memory can be assigned to a
-    // Memory Chunk.
-    // Example : 
-    //	You want to Allocate 120 Bytes, but every "SMemoryChunk" can only handle
-    //    50 Bytes ("m_sMemoryChunkSize = 50").
-    //    So, "CalculateNeededChunks()" will return the Number of Chunks needed to
-    //    manage 120 Bytes. Since it is not possible to divide 120 Bytes in to
-    //    50 Byte Chunks, "CalculateNeededChunks()" returns 3.
-    //    ==> 3 Chunks can Manage 150 Bytes of data (50 * 3 = 150), so
-    //        the requested 120 Bytes will fit into this Block.
-    //    "CalculateBestMemoryBlockSize()" will return the amount of memory needed
-    //    to *perfectly* subdivide the allocated Memory into "m_sMemoryChunkSize" (= 50) Byte
-    //    pieces. -> "CalculateBestMemoryBlockSize()" returns 150.
-    //    So, 150 Bytes of memory are allocated from the Operating-System and
-    //    subdivided into 3 Memory-Chunks (each holding a Pointer to 50 Bytes of the allocated memory).
-    //    Since only 120 Bytes are requested, we have a Memory-Overhead of 
-    //    150 - 120 = 30 Bytes. 
-    //    Note, that the Memory-overhead is not a bad thing, because we can use 
-    //    that memory later (it remains in the Memory-Pool).
-
     unsigned int uiNeededChunks = CalculateNeededChunks(sMemorySize);
     std::size_t sBestMemBlockSize = CalculateBestMemoryBlockSize(sMemorySize);
 
@@ -208,7 +183,7 @@ SMemoryChunk *CMemoryPool::FindChunkSuitableToHoldMemory(const std::size_t &sMem
                     return ptrChunk;
                 }
             }
-            uiChunksToSkip = CalculateNeededChunks(ptrChunk->UsedSize);
+            uiChunksToSkip = CalculateNeededChunks(ptrChunk->UsedSize); // skip used memory
             if(uiChunksToSkip == 0)
             {
                 uiChunksToSkip = 1;
@@ -299,6 +274,7 @@ bool CMemoryPool::LinkChunksToData(SMemoryChunk *ptrNewChunks, unsigned int uiCh
         }
         
         uiMemOffSet = (i * ((unsigned int) m_sMemoryChunkSize));
+        // allocate a segment to "Data"
         m_ptrLastChunk->Data = &(ptrNewMemBlock[uiMemOffSet]);
 
         // The first Chunk assigned to the new Memory-Block will be 
