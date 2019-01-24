@@ -12,7 +12,7 @@ BasicIncludes.h
 
 // c
 #include <stdlib.h>
-#include <stdio.h>
+#include <cstdio>
 #include <math.h>
 #include <assert.h>
 
