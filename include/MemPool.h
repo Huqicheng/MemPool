@@ -75,6 +75,8 @@ class CMemoryPool : public IMemoryBlock
 	  @return                      true, if the Pointer could be found in the Memory-Pool, false otherwise.
 	*/
 	bool IsValidPointer(void *ptrPointer);
+
+	void DebugInfo();
  
   private :
     /*!

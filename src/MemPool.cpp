@@ -37,6 +37,14 @@ CMemoryPool::CMemoryPool(const std::size_t &sInitialMemoryPoolSize,
     AllocateMemory(sInitialMemoryPoolSize);
 }
 
+void CMemoryPool::DebugInfo()
+{
+    std::cout << "Here is the Mem Pool:" << std::endl;
+    std::cout << "Total Size:" << m_sTotalMemoryPoolSize << std::endl;
+    std::cout << "Used Size:" << m_sUsedMemoryPoolSize << std::endl;
+    std::cout << "Free Size:" << m_sFreeMemoryPoolSize << std::endl;
+}
+
 CMemoryPool::~CMemoryPool()
 {
     FreeAllAllocatedMemory();
