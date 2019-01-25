@@ -21,12 +21,4 @@ BasicIncludes.h
 #include <iostream>
 #include <fstream>
 
-// for MSVC++ 6.0
-/*
-namespace std
-{
-	typedef unsigned int size_t;
-}
-*/
-
 #endif
