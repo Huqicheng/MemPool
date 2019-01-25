@@ -7,7 +7,8 @@ add_subdirectory(src)
 add_subdirectory(thread)
 
 add_executable(main main.cpp)
+add_executable(test test_thread.cpp)
 
 # link libs to the program entry
-target_link_libraries(main libmempool)
-target_link_libraries(main libthread)
+target_link_libraries(main libmempool libthread)
+target_link_libraries(test libmempool libthread)

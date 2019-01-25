@@ -1,5 +1,6 @@
 #include <iostream>
 #include <MemPool.h>
+#include <Thread.h>
 using namespace std;
 
 MemPool::CMemoryPool *g_ptrMemPool = NULL;
