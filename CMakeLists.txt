@@ -10,5 +10,5 @@ add_executable(main main.cpp)
 add_executable(test test_thread.cpp)
 
 # link libs to the program entry
-target_link_libraries(main libmempool libthread)
-target_link_libraries(test libmempool libthread)
+target_link_libraries(main libmempool libthread ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(test libmempool libthread ${CMAKE_THREAD_LIBS_INIT})
